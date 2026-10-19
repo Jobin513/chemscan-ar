@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ChemScan AR</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- A-Frame (3D scene) and MindAR (image tracking), loaded from CDN -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+</head>
+<body>
+
+  <!-- Top hint, shown while nothing is on screen -->
+  <p id="scan-hint">Point the camera at a product label</p>
+
+  <!--
+    The AR scene. mindar-image turns on the camera and looks for the labels in targets.mind.
+    targets.mind holds the 3 label images in the same order as products.json (0, 1, 2).
+  -->
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; uiScanning: no"
+    color-space="sRGB"
+    renderer="colorManagement: true"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <!--
+      One entity per label. Anything inside it is drawn on top of that label.
+      The label is 1 unit wide and 0.75 tall. app.js sets the colors and text from products.json.
+    -->
+    <a-entity class="label-target" mindar-image-target="targetIndex: 0">
+      <a-plane class="tint" width="1" height="0.75" opacity="0.3"></a-plane>
+      <a-plane class="badge" position="0 0.5 0" width="0.9" height="0.2">
+        <a-text class="badge-text" align="center" width="3" position="0 0 0.01"></a-text>
+      </a-plane>
+    </a-entity>
+
+    <a-entity class="label-target" mindar-image-target="targetIndex: 1">
+      <a-plane class="tint" width="1" height="0.75" opacity="0.3"></a-plane>
+      <a-plane class="badge" position="0 0.5 0" width="0.9" height="0.2">
+        <a-text class="badge-text" align="center" width="3" position="0 0 0.01"></a-text>
+      </a-plane>
+    </a-entity>
+
+    <a-entity class="label-target" mindar-image-target="targetIndex: 2">
+      <a-plane class="tint" width="1" height="0.75" opacity="0.3"></a-plane>
+      <a-plane class="badge" position="0 0.5 0" width="0.9" height="0.2">
+        <a-text class="badge-text" align="center" width="3" position="0 0 0.01"></a-text>
+      </a-plane>
+    </a-entity>
+  </a-scene>
+
+  <!--
+    Details panel. Hidden until a label is recognized, then it stays on screen
+    (even if the label leaves the camera) until Scan Next or a different label.
+    Order: QC status first, then date, then lot and storage.
+  -->
+  <section id="details-panel" hidden aria-live="polite">
+    <div id="qc-status" class="qc-status"></div>
+    <h2 id="product-name"></h2>
+    <dl>
+      <div class="row"><dt id="date-label">Expiration</dt><dd id="date-value"></dd></div>
+      <div class="row"><dt>Lot</dt><dd id="lot-value"></dd></div>
+      <div class="row"><dt>Storage</dt><dd id="storage-value"></dd></div>
+    </dl>
+    <button id="scan-next">Scan Next</button>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

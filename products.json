@@ -1,0 +1,32 @@
+[
+  {
+    "targetIndex": 0,
+    "productName": "Ascorbic Acid USP (Vitamin C), Fine Powder",
+    "itemNumber": "RM-10421",
+    "lotNumber": "ASC-24117",
+    "dateType": "Retest",
+    "date": "2027-03-15",
+    "storage": "15-25 °C. Keep dry. Protect from light.",
+    "qcStatus": "Released"
+  },
+  {
+    "targetIndex": 1,
+    "productName": "Microcrystalline Cellulose NF (PH-102)",
+    "itemNumber": "RM-20388",
+    "lotNumber": "MCC-24302",
+    "dateType": "Retest",
+    "date": "2027-08-01",
+    "storage": "Below 30 °C. Keep container tightly closed.",
+    "qcStatus": "On Hold"
+  },
+  {
+    "targetIndex": 2,
+    "productName": "Citric Acid Anhydrous, Food Grade",
+    "itemNumber": "RM-30156",
+    "lotNumber": "CIT-23088",
+    "dateType": "Expiration",
+    "date": "2026-06-30",
+    "storage": "Cool, dry place below 25 °C. Keep away from moisture.",
+    "qcStatus": "Expired"
+  }
+]

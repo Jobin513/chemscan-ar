@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Compile ChemScan targets</title>
+  <!-- MindAR's compiler turns label images into the targets.mind file the app tracks -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image.prod.js"></script>
+</head>
+<body style="font-family: sans-serif; font-size: 20px; padding: 20px;">
+  <h1>Compile targets.mind</h1>
+  <p>Only needed if you change the label images. Order MUST match products.json (target 0, 1, 2).</p>
+  <button id="go" style="font-size: 20px; padding: 10px 20px;">Compile</button>
+  <p id="status"></p>
+  <a id="download" hidden download="targets.mind">Download targets.mind (put it next to index.html)</a>
+
+  <script type="module">
+    // Same order as products.json: index 0, 1, 2
+    const LABELS = [
+      '../labels/label-0-ascorbic-acid.png',
+      '../labels/label-1-microcrystalline-cellulose.png',
+      '../labels/label-2-citric-acid.png'
+    ];
+    const status = document.getElementById('status');
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    async function compile() {
+      status.textContent = 'Loading images...';
+      const images = await Promise.all(LABELS.map(loadImage));
+
+      const compiler = new window.MINDAR.IMAGE.Compiler();
+      await compiler.compileImageTargets(images, (progress) => {
+        status.textContent = 'Compiling... ' + progress.toFixed(0) + '%';
+      });
+      const buffer = await compiler.exportData();
+
+      // Offer the file as a download
+      const link = document.getElementById('download');
+      link.href = URL.createObjectURL(new Blob([buffer]));
+      link.hidden = false;
+      status.textContent = 'Done: ' + buffer.byteLength + ' bytes.';
+      return buffer;
+    }
+
+    document.getElementById('go').addEventListener('click', () => compile().catch((err) => {
+      console.error(err);
+      status.textContent = 'Error: ' + err.message;
+    }));
+  </script>
+</body>
+</html>
