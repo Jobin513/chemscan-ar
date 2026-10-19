@@ -52,21 +52,21 @@ body { background: transparent; overflow: hidden; }
   left: 0;
   right: 0;
   bottom: 0;
-  max-height: 75vh;
+  max-height: 55vh;         /* keep the top of the screen clear so the AR badge on the label stays visible */
   overflow-y: auto;
   background: var(--panel-bg);
   border-top: 3px solid #fff;
   z-index: 10;              /* above MindAR's camera video */
-  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));  /* clear the iPhone home bar */
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));  /* clear the iPhone home bar */
 }
 #details-panel[hidden] { display: none; }
 
 .qc-status {
-  font-size: 2.2rem;
+  font-size: 1.7rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-align: center;
-  padding: 10px;
+  padding: 4px;
   border-radius: 8px;
 }
 /* Colour plus an icon and the word itself, so status never relies on colour alone */
@@ -74,31 +74,31 @@ body { background: transparent; overflow: hidden; }
 .status-on-hold  { background: var(--on-hold);  color: #000; }
 .status-expired  { background: var(--expired);  color: #fff; }
 
-#product-name { font-size: 1.35rem; margin: 12px 0 8px; }
+#product-name { font-size: 1.1rem; margin: 6px 0 2px; }
 
 dl { margin: 0; }
 .row {
   display: flex;
   gap: 12px;
-  padding: 8px 0;
+  padding: 3px 0;
   border-top: 1px solid #333;
 }
 dt {
-  flex: 0 0 6.5em;
-  font-size: 0.95rem;
+  flex: 0 0 5.6em;
+  font-size: 0.8rem;
   color: var(--muted);
   text-transform: uppercase;
   padding-top: 0.3em;
 }
-dd { margin: 0; font-size: 1.4rem; font-weight: 700; }
+dd { margin: 0; font-size: 1.15rem; font-weight: 700; }
 
 /* Oversized, full-width, bottom of the screen = easy one-thumb tap */
 #scan-next {
   display: block;
   width: 100%;
-  min-height: 88px;
-  margin-top: 12px;
-  font-size: 1.8rem;
+  min-height: 64px;
+  margin-top: 8px;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #000;
   background: #fff;
