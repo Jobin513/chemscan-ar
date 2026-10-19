@@ -17,12 +17,16 @@
 html, body {
   margin: 0;
   height: 100%;
-  background: var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: 20px;        /* base size; everything below is relative to this */
   line-height: 1.3;
 }
+
+/* Black behind everything, but only on html. MindAR puts the camera video BEHIND the page,
+   so a background on body would cover the camera. body must stay transparent. */
+html { background: var(--bg); }
+body { background: transparent; overflow: hidden; }
 
 /* ---------- Hint at the top of the camera view ---------- */
 
